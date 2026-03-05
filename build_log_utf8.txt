@@ -1,0 +1,209 @@
+﻿
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+node.exe : Error: 
+Cannot apply 
+unknown utility 
+class 
+`bg-slate-950`. Are 
+you using CSS 
+modules or similar 
+and missing 
+`@reference`? https:
+//tailwindcss.com/do
+cs/functions-and-dir
+ectives#reference-di
+rective
+At line:1 char:1
++ & "C:\Program File
+s\nodejs/node.exe" 
+"C:\Program Files\no
+dejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (Erro   
+ r: Cannot a...r    
+ence-directive:    
+String) [], Rem    
+oteException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+    at 
+onInvalidCandidate 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:21:1314)
+    at Ee 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:16:37066
+)
+    at 
+C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:21:355
+    at Pr 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:3:1733)
+    at _ 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:3:1377)
+    at Te 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:21:172)
+    at pn 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:38:294)
+    at async dn 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\tailwindcss\
+dist\lib.js:38:631)
+    at async Xr 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\@tailwindcss
+\node\dist\index.js:
+10:3417)
+    at async N 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\@tailwindcss
+\postcss\dist\index.
+js:10:3979)
+[32mΓ£ô[39m 5 modules transformed.
+[31mΓ£ù[39m Build 
+failed in 400ms
+[31merror during 
+build:
+[31m[vite:css] 
+[postcss] 
+tailwindcss: 
+C:/Users/Zbook 
+Power G7/Desktop/hel
+pdesk/frontend/src/i
+ndex.css:1:1: 
+Cannot apply 
+unknown utility 
+class 
+`bg-slate-950`. Are 
+you using CSS 
+modules or similar 
+and missing 
+`@reference`? https:
+//tailwindcss.com/do
+cs/functions-and-dir
+ectives#reference-di
+rective[31m
+file: 
+[36mC:/Users/Zbook 
+Power G7/Desktop/hel
+pdesk/frontend/src/i
+ndex.css:1:0[31m
+    at Input.error 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\postcss\lib\
+input.js:135:16)
+    at Root.error 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\postcss\lib\
+node.js:146:32)
+    at Object.Once 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\@tailwindcss
+\postcss\dist\index.
+js:10:6913)
+    at async 
+LazyResult.runAsync 
+(C:\Users\Zbook 
+Power G7\Desktop\hel
+pdesk\frontend\node_
+modules\postcss\lib\
+lazy-result.js:293:1
+1)
+    at async 
+runPostCSS (file:///
+C:/Users/Zbook%20Pow
+er%20G7/Desktop/help
+desk/frontend/node_m
+odules/vite/dist/nod
+e/chunks/config.js:3
+0145:19)
+    at async 
+compilePostCSS (file
+:///C:/Users/Zbook%2
+0Power%20G7/Desktop/
+helpdesk/frontend/no
+de_modules/vite/dist
+/node/chunks/config.
+js:30129:6)
+    at async 
+compileCSS (file:///
+C:/Users/Zbook%20Pow
+er%20G7/Desktop/help
+desk/frontend/node_m
+odules/vite/dist/nod
+e/chunks/config.js:3
+0059:26)
+    at async 
+Object.handler (file
+:///C:/Users/Zbook%2
+0Power%20G7/Desktop/
+helpdesk/frontend/no
+de_modules/vite/dist
+/node/chunks/config.
+js:29592:54)
+    at async 
+transform (file:///C
+:/Users/Zbook%20Powe
+r%20G7/Desktop/helpd
+esk/frontend/node_mo
+dules/rollup/dist/es
+/shared/node-entry.j
+s:21269:16)
+    at async ModuleL
+oader.addModuleSourc
+e (file:///C:/Users/
+Zbook%20Power%20G7/D
+esktop/helpdesk/fron
+tend/node_modules/ro
+llup/dist/es/shared/
+node-entry.js:21497:
+36)[39m
+
