@@ -9,6 +9,25 @@ import RequestDetailPage from '../pages/Requests/RequestDetailPage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import DashboardLayout from '../components/layout/DashboardLayout.jsx';
 
+import RequestsPage from '../pages/Requests/RequestsPage.jsx';
+import MessagesPage from '../pages/Messages/MessagesPage.jsx';
+import ProfilePage from '../pages/Profile/ProfilePage.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+
+const DashboardRedirect = () => {
+  const { user } = useAuth();
+  const role = user?.role || 'USER';
+
+  const dashboardPath =
+    role === 'ADMIN'
+      ? '/dashboard/admin'
+      : role === 'VOLUNTEER'
+        ? '/dashboard/volunteer'
+        : '/dashboard/user';
+
+  return <Navigate to={dashboardPath} replace />;
+};
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -16,6 +35,16 @@ const AppRouter = () => {
 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      {/* Dashboard Redirect */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardRedirect />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/dashboard/user"
@@ -45,6 +74,39 @@ const AppRouter = () => {
           <ProtectedRoute roles={['ADMIN']}>
             <DashboardLayout>
               <AdminDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/requests"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <RequestsPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/messages"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <MessagesPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <ProfilePage />
             </DashboardLayout>
           </ProtectedRoute>
         }
