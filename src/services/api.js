@@ -1,8 +1,14 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+if (import.meta.env.PROD) {
+  console.log('API Base URL:', baseURL);
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL,
 });
 
 // Request interceptor for API calls
@@ -32,7 +38,17 @@ export const clearAuthToken = () => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error?.response?.data?.message || 'Something went wrong';
+    const status = error?.response?.status;
+    const data = error?.response?.data;
+    const message = data?.message || 'Something went wrong';
+
+    // Log full error details for debugging
+    console.error(`API Error [${status}]:`, {
+      url: error?.config?.url,
+      method: error?.config?.method,
+      data: data,
+      message: message
+    });
 
     // Global error message for all but specific cases if needed
     if (error.response && error.response.status !== 401) {

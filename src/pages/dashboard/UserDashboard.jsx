@@ -14,8 +14,11 @@ const UserDashboard = () => {
   const [form, setForm] = useState({
     title: '',
     description: '',
-    category: '',
-    location: '',
+    type: 'Assistance',
+    category: 'Medical',
+    locationName: '',
+    latitude: 24.8607,
+    longitude: 67.0011,
   });
   const [requests, setRequests] = useState([]);
   const [pagination, setPagination] = useState({ total: 0, page: 1 });
@@ -23,6 +26,20 @@ const UserDashboard = () => {
   const [creating, setCreating] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [suggestedVolunteers, setSuggestedVolunteers] = useState([]);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setForm(prev => ({
+          ...prev,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }));
+      }, (error) => {
+        console.warn('Geolocation error:', error);
+      });
+    }
+  }, []);
 
   const loadRequests = async (page = 1) => {
     if (!user) return;
@@ -57,10 +74,11 @@ const UserDashboard = () => {
   };
 
   const handleBlurDescription = async () => {
-    if (!form.description || form.category) return;
+    if (!form.description) return;
     try {
       const { detectedCategory } = await helpRequestService.detectCategory(form.description);
-      if (detectedCategory && detectedCategory !== 'Other') {
+      const validCategories = ['Medical', 'Grocery', 'Education', 'Emergency'];
+      if (detectedCategory && validCategories.includes(detectedCategory)) {
         setForm((prev) => ({ ...prev, category: detectedCategory }));
         toast.success(`Suggested category: ${detectedCategory}`);
       }
@@ -75,7 +93,14 @@ const UserDashboard = () => {
     try {
       await helpRequestService.createHelpRequest(form);
       toast.success('Help request created');
-      setForm({ title: '', description: '', category: '', location: '' });
+      setForm((prev) => ({
+        ...prev,
+        title: '',
+        description: '',
+        category: 'Medical',
+        type: 'Assistance',
+        locationName: ''
+      }));
       loadRequests(1);
     } catch (err) {
       // handled
@@ -102,6 +127,37 @@ const UserDashboard = () => {
             Create Help Request
           </h2>
           <form onSubmit={handleCreate} className="space-y-3">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold ml-1">Request Type</label>
+                <select
+                  name="type"
+                  value={form.type}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none ring-hb-primary/40 focus:border-hb-primary focus:ring-1"
+                >
+                  <option value="Assistance">Assistance</option>
+                  <option value="Support">Support</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold ml-1">Category</label>
+                <select
+                  name="category"
+                  value={form.category}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none ring-hb-primary/40 focus:border-hb-primary focus:ring-1"
+                >
+                  <option value="Medical">Medical</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Education">Education</option>
+                  <option value="Emergency">Emergency</option>
+                </select>
+              </div>
+            </div>
+
             <div className="space-y-1.5">
               <input
                 name="title"
@@ -123,26 +179,20 @@ const UserDashboard = () => {
                 className="min-h-[80px] w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none ring-hb-primary/40 focus:border-hb-primary focus:ring-1"
               />
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="space-y-1.5">
               <input
-                name="category"
-                placeholder="Category (optional)"
-                value={form.category}
+                name="locationName"
+                placeholder="Location (e.g. Karachi, Saddar)"
+                value={form.locationName}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none ring-hb-primary/40 focus:border-hb-primary focus:ring-1"
-              />
-              <input
-                name="location"
-                placeholder="Location"
-                value={form.location}
-                onChange={handleChange}
+                required
                 className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none ring-hb-primary/40 focus:border-hb-primary focus:ring-1"
               />
             </div>
             <button
               type="submit"
               disabled={creating}
-              className="inline-flex w-full items-center justify-center rounded-lg bg-hb-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-blue-900/40 hover:bg-blue-600 disabled:opacity-60"
+              className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-hb-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-blue-900/40 hover:bg-blue-600 disabled:opacity-60 transition-colors"
             >
               {creating ? 'Submitting...' : 'Submit request'}
             </button>
