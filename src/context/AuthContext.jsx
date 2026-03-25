@@ -29,9 +29,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const redirectByRole = (role) => {
-    if (role === 'ADMIN') navigate('/dashboard/admin');
-    else if (role === 'VOLUNTEER') navigate('/dashboard/volunteer');
-    else navigate('/dashboard/user');
+    if (role === 'ADMIN') navigate('/admin-dashboard');
+    else if (role === 'VOLUNTEER') navigate('/volunteer-dashboard');
+    else navigate('/user-dashboard');
   };
 
   const handleLogin = async (credentials) => {

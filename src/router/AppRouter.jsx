@@ -21,10 +21,10 @@ const DashboardRedirect = () => {
 
   const dashboardPath =
     role === 'ADMIN'
-      ? '/dashboard/admin'
+      ? '/admin-dashboard'
       : role === 'VOLUNTEER'
-        ? '/dashboard/volunteer'
-        : '/dashboard/user';
+        ? '/volunteer-dashboard'
+        : '/user-dashboard';
 
   return <Navigate to={dashboardPath} replace />;
 };
@@ -48,7 +48,7 @@ const AppRouter = () => {
       />
 
       <Route
-        path="/dashboard/user"
+        path="/user-dashboard"
         element={
           <ProtectedRoute roles={['USER']}>
             <DashboardLayout>
@@ -59,7 +59,7 @@ const AppRouter = () => {
       />
 
       <Route
-        path="/dashboard/volunteer"
+        path="/volunteer-dashboard"
         element={
           <ProtectedRoute roles={['VOLUNTEER']}>
             <DashboardLayout>
@@ -70,7 +70,7 @@ const AppRouter = () => {
       />
 
       <Route
-        path="/dashboard/admin"
+        path="/admin-dashboard"
         element={
           <ProtectedRoute roles={['ADMIN']}>
             <DashboardLayout>
