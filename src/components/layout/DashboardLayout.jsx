@@ -4,7 +4,15 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import Navbar from './Navbar.jsx';
 
 const DashboardLayout = ({ children }) => {
-  const { user } = useAuth();
+  const { user, loading, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      navigate('/login');
+    }
+  }, [loading, isAuthenticated, navigate]);
+
   const role = user?.role || 'USER';
 
   const dashboardPath =
